@@ -10,9 +10,20 @@ const sampleText = `This is a demo article for automatic vocabulary collection.\
 
 const translateWord = async (word) => {
   try {
-    const response = await fetch(`http://api.mymemory.translated.net/get?q=${encodeURIComponent(word)}&langpair=en|zh-CN`);
+    const response = await fetch('https://libretranslate.com/translate', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        q: word,
+        source: 'en',
+        target: 'zh',
+        format: 'text'
+      })
+    });
     const data = await response.json();
-    return data.responseData.translatedText;
+    return data.translatedText;
   } catch (e) {
     return '翻譯失敗';
   }
