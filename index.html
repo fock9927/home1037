@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>自動單字收集器</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header>
+    <h1>自動單字收集器</h1>
+    <p>貼上文章後，系統會自動擷取單字並建立生字清單。</p>
+  </header>
+
+  <main>
+    <section class="panel">
+      <h2>文章內容</h2>
+      <textarea id="sourceText" placeholder="請將文章貼在這裡，系統會自動收集單字..."></textarea>
+      <div class="controls">
+        <button id="loadSample">載入示範文章</button>
+        <button id="exportWords">匯出單字清單</button>
+      </div>
+    </section>
+
+    <section class="panel panel-right">
+      <h2>閱讀模式</h2>
+      <div id="reader" class="reader"></div>
+      <h2>單字清單</h2>
+      <div id="wordList" class="word-list"></div>
+    </section>
+  </main>
+
+  <footer>
+    <p>點擊單字可標記為已學過；重新貼上文章會自動更新清單。</p>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>

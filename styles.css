@@ -1,0 +1,157 @@
+:root {
+  --bg: #f4f7fb;
+  --panel: #ffffff;
+  --border: #dce1e8;
+  --text: #1f2937;
+  --accent: #2563eb;
+  --accent-light: #c7dafe;
+  --learned: #d1fae5;
+  --learned-border: #86efac;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: "Noto Sans TC", system-ui, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+}
+
+header,
+footer {
+  padding: 24px;
+  text-align: center;
+}
+
+header h1 {
+  margin: 0 0 8px;
+  font-size: 2rem;
+}
+
+main {
+  display: grid;
+  gap: 24px;
+  padding: 0 24px 24px;
+  grid-template-columns: 1fr;
+}
+
+.panel {
+  padding: 20px;
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+}
+
+.panel-right {
+  min-height: 520px;
+}
+
+textarea {
+  width: 100%;
+  min-height: 220px;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 16px;
+  font-size: 1rem;
+  line-height: 1.75;
+  resize: vertical;
+}
+
+.controls {
+  margin-top: 12px;
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+button {
+  border: none;
+  background: var(--accent);
+  color: white;
+  padding: 10px 18px;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: transform 0.16s ease, background 0.16s ease;
+}
+
+button:hover {
+  transform: translateY(-1px);
+  background: #1d4ed8;
+}
+
+.reader {
+  min-height: 260px;
+  padding: 18px;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: #f9fbff;
+  line-height: 1.8;
+}
+
+.reader .word {
+  cursor: pointer;
+  border-radius: 4px;
+  transition: background 0.16s ease;
+}
+
+.reader .word:hover {
+  background: var(--accent-light);
+}
+
+.reader .word.learned {
+  background: var(--learned);
+  border-bottom: 1px dashed var(--learned-border);
+}
+
+.word-list {
+  display: grid;
+  gap: 10px;
+  margin-top: 16px;
+}
+
+.word-item {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 12px;
+  padding: 12px 14px;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  align-items: center;
+}
+
+.word-label {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.word-label strong {
+  font-size: 1rem;
+}
+
+.word-meta {
+  color: #475569;
+  font-size: 0.95rem;
+}
+
+.word-item.learned {
+  background: var(--learned);
+}
+
+.learned-chip {
+  padding: 4px 8px;
+  border-radius: 999px;
+  font-size: 0.82rem;
+  background: #ecfdf5;
+  color: #166534;
+}
+
+@media (min-width: 960px) {
+  main {
+    grid-template-columns: 1fr 1fr;
+  }
+}
