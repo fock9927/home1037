@@ -120,6 +120,14 @@ sourceText.addEventListener('input', () => {
   render();
 });
 
+sourceText.addEventListener('paste', () => {
+  setTimeout(() => {
+    state.text = sourceText.value;
+    saveState();
+    render();
+  }, 10);
+});
+
 reader.addEventListener('click', (event) => {
   const target = event.target.closest('.word');
   if (target && target.dataset.word) {
