@@ -2,6 +2,7 @@ const sourceText = document.getElementById('sourceText');
 const reader = document.getElementById('reader');
 const wordList = document.getElementById('wordList');
 const loadSample = document.getElementById('loadSample');
+const updateBtn = document.getElementById('updateBtn');
 const exportWords = document.getElementById('exportWords');
 
 const STORAGE_KEY = 'auto-vocab-reader';
@@ -145,6 +146,12 @@ wordList.addEventListener('click', async (event) => {
 loadSample.addEventListener('click', () => {
   sourceText.value = sampleText;
   state.text = sampleText;
+  saveState();
+  render();
+});
+
+updateBtn.addEventListener('click', () => {
+  state.text = sourceText.value;
   saveState();
   render();
 });
