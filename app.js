@@ -8,10 +8,15 @@ const STORAGE_KEY = 'auto-vocab-reader';
 
 const sampleText = `This is a demo article for automatic vocabulary collection.\n\nWhile reading, the page highlights each word and builds a word list automatically.\nClick any word to mark it as learned, and export the vocabulary list for review later.`;
 
-const safeHtml = (text) => text
-  .replace(/&/g, '&amp;')
-  .replace(/</g, '&lt;')
-  .replace(/>/g, '&gt;');
+const translateWord = async (word) => {
+  try {
+    const response = await fetch(`http://api.mymemory.translated.net/get?q=${encodeURIComponent(word)}&langpair=en|zh-CN`);
+    const data = await response.json();
+    return data.responseData.translatedText;
+  } catch (e) {
+    return '翻譯失敗';
+  }
+};
 
 const parseWords = (text) => {
   const matches = text.toLowerCase().match(/\b[a-zA-Z']{2,}\b/g) || [];
@@ -76,6 +81,10 @@ const renderWordList = (wordMap, knownWords) => {
           <strong>${word}</strong>
           <span class="word-meta">出現次數：${count}</span>
         </div>
+        <div class="word-translation">
+          <button class="translate-btn" data-word="${word}">翻譯</button>
+          <span class="translation-text" id="trans-${word}"></span>
+        </div>
         ${learned ? '<span class="learned-chip">已學過</span>' : '<span class="learned-chip">待學習</span>'}
       </div>`;
     });
@@ -102,10 +111,19 @@ reader.addEventListener('click', (event) => {
   }
 });
 
-wordList.addEventListener('click', (event) => {
+wordList.addEventListener('click', async (event) => {
   const target = event.target.closest('.word-item');
   if (target && target.dataset.word) {
     toggleLearned(target.dataset.word);
+  }
+  const translateBtn = event.target.closest('.translate-btn');
+  if (translateBtn) {
+    const word = translateBtn.dataset.word;
+    const transElement = document.getElementById(`trans-${word}`);
+    if (transElement.textContent) return; // 已翻譯過
+    transElement.textContent = '翻譯中...';
+    const translation = await translateWord(word);
+    transElement.textContent = translation;
   }
 });
 
