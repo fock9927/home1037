@@ -68,6 +68,10 @@ const toggleLearned = (word) => {
 };
 
 const renderReader = (text, knownWords) => {
+  if (!text.trim()) {
+    reader.innerHTML = '<p style="color: #6b7280; text-align: center; margin: 40px 0;">請在左側貼入英文文章，系統會自動高亮單字並顯示在此處。</p>';
+    return;
+  }
   const escaped = safeHtml(text);
   const html = escaped.replace(/\b([a-zA-Z']{2,})\b/g, (match) => {
     const key = match.toLowerCase();
